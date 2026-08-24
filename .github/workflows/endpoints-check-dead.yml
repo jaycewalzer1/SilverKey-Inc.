@@ -6,13 +6,6 @@
 # Secrets: POSTHOG_PROJECT_TOKEN (ingest), POSTHOG_QUERY_API_KEY (query:read)
 name: PostHog dead endpoints check
 
-on:
-  schedule:
-    # Monday 10:00 America/New_York — after weekly lint (09:00)
-    - cron: "0 10 * * 1"
-      timezone: America/New_York
-  workflow_dispatch:
-
 permissions:
   contents: read
 
