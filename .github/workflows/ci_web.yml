@@ -7,13 +7,6 @@ on:
         description: "Optional existing immutable ECR image tag to deploy, e.g. prior 12-char git SHA for rollback"
         required: false
         type: string
-  schedule:
-    # Sunday 03:00 America/New_York — full build + deploy from default branch
-    - cron: "0 3 * * 0"
-      timezone: America/New_York
-    # Wednesday 03:00 America/New_York
-    - cron: "0 3 * * 3"
-      timezone: America/New_York
 
 env:
   REGION: us-east-2
