@@ -21,6 +21,6 @@
 
 -r ci.txt
 
-ruff==0.15.12
-pyright==1.1.404
-vulture==2.14
+ruff==0.16.6
+pyright==1.1.411
+vulture==2.16

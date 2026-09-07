@@ -24,7 +24,7 @@ jobs:
       actions: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
@@ -69,7 +69,7 @@ jobs:
           df -h
 
       - name: Login to ECR
-        uses: aws-actions/amazon-ecr-login@v2.1.5
+        uses: aws-actions/amazon-ecr-login@v2.1.7
 
       # Load optional repo variable DB_URL_SECRET_ID without ${{ vars.* }} (IDE language service flags unknown var names).
       - name: Load DB_URL_SECRET_ID from repository variables
