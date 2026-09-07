@@ -16,5 +16,5 @@
 #     for a dedicated venv that only runs codegen)
 #
 # --- Pinned tools (bump with dev.txt datamodel-code-generator when regenerating models) ---
-datamodel-code-generator==0.56.1
-ruff==0.15.12
+datamodel-code-generator==0.76.2
+ruff==0.16.6

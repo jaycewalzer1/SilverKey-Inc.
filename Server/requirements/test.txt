@@ -25,12 +25,12 @@
 # aligned with the same line in requirements/ci.txt when versions change.
 #
 # --- Lines below are installed after ci.txt + CPU torch in test-callable.yml ---
-flask-compress==1.15
+flask-compress==1.24
 
 # SkySlope demo generator unit tests import scripts.skyslope.generate_demo_dataset
 # Keep pin in sync with requirements/dev.txt (local bootstrap).
-faker==20.1.0
+faker==40.38.0
 
-sentence-transformers==5.3.0
-transformers==5.8.1
+sentence-transformers==6.0.1
+transformers==5.16.1
 # numpy, pandas, matplotlib, scikit-learn, shapely, openai, httpx: installed via ci.txt
