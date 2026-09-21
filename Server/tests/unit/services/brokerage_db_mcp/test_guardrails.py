@@ -66,6 +66,34 @@ def test_rejects_comment_only():
         validate_read_only_sql("-- just a comment")
 
 
+@pytest.mark.parametrize(
+    "sql,code",
+    [
+        ("SELECT * FROM t FOR UPDATE", "banned_phrase"),
+        ("SELECT pg_read_file('/etc/passwd')", "banned_phrase"),
+        ("SELECT lo_export(1, '/tmp/x')", "banned_phrase"),
+        ("COPY skyslope_transactions TO STDOUT", "not_select"),
+        ("GRANT SELECT ON skyslope_transactions TO public", "not_select"),
+    ],
+)
+def test_rejects_escalation_phrases_and_keywords(sql: str, code: str):
+    with pytest.raises(QueryGuardrailError) as exc:
+        validate_read_only_sql(sql)
+    assert exc.value.code == code
+
+
+def test_rejects_invalid_max_limit():
+    with pytest.raises(QueryGuardrailError) as exc:
+        validate_read_only_sql("SELECT 1", max_limit=0)
+    assert exc.value.code == "invalid_limit"
+
+
+def test_preserves_limit_with_offset():
+    out = validate_read_only_sql("SELECT 1 LIMIT 25 OFFSET 10")
+    assert "limit 25" in out.lower()
+    assert "offset 10" in out.lower()
+
+
 def test_comment_cannot_hide_second_statement():
     # After comment strip, still one SELECT — should pass
     out = validate_read_only_sql("SELECT 1 -- DELETE FROM t")
@@ -75,3 +103,9 @@ def test_comment_cannot_hide_second_statement():
     with pytest.raises(QueryGuardrailError) as exc:
         validate_read_only_sql("SELECT 1; DELETE FROM t")
     assert exc.value.code == "multiple_statements"
+
+
+def test_semicolon_inside_string_is_not_multi_statement():
+    out = validate_read_only_sql("SELECT 'a;b' AS note")
+    assert "limit" in out.lower()
+    assert out.lower().count("select") == 1

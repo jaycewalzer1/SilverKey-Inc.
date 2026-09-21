@@ -123,10 +123,35 @@ describe("onboarding flow snapshots (buyer and agent parity)", () => {
     ]);
   });
 
-  it("integration partner web — shell onboarding snapshot", () => {
-    expect(stepSnapshot(getOnboardingSteps({ primaryRole: "integration_partner" }))).toEqual([
-      { id: "onboarding_role", title: "Who I am" },
-      { id: "integration_partner_shell_setup", title: "Partner setup" },
-    ]);
+  const INTEGRATION_PARTNER_SNAPSHOT = [
+    { id: "onboarding_role", title: "Who I am" },
+    { id: "ip_org_details", title: "Organization" },
+    { id: "ip_integration_type", title: "Service type" },
+    { id: "ip_point_of_contact", title: "Contact" },
+    { id: "ip_service_area", title: "Service area" },
+    { id: "ip_agreement", title: "Agreement" },
+  ];
+
+  it("integration partner web — SIL-193 five-step onboarding snapshot", () => {
+    expect(stepSnapshot(getOnboardingSteps({ primaryRole: "integration_partner" }))).toEqual(
+      INTEGRATION_PARTNER_SNAPSHOT
+    );
+  });
+
+  it("integration partner web — registry builder matches SIL-193 snapshot", () => {
+    expect(
+      stepSnapshot(
+        buildOnboardingFlowFromOptions({
+          primaryRole: "integration_partner",
+          platform: "web",
+        })
+      )
+    ).toEqual(INTEGRATION_PARTNER_SNAPSHOT);
+  });
+
+  it("integration partner mobile — public API matches SIL-193 snapshot", () => {
+    expect(
+      stepSnapshot(getOnboardingStepsMobile({ primaryRole: "integration_partner" }))
+    ).toEqual(INTEGRATION_PARTNER_SNAPSHOT);
   });
 });

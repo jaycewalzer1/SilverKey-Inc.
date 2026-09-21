@@ -54,12 +54,19 @@ describe("getOnboardingSteps", () => {
     expect(ids).toEqual(["onboarding_role", "brokerage_shell_setup"]);
   });
 
-  it("integration partner flow includes shell setup step", () => {
+  it("integration partner flow includes five SIL-193 onboarding steps", () => {
     const ids = getOnboardingSteps({
       excludeFinancial: true,
       primaryRole: "integration_partner",
     }).map((s) => s.id);
-    expect(ids).toEqual(["onboarding_role", "integration_partner_shell_setup"]);
+    expect(ids).toEqual([
+      "onboarding_role",
+      "ip_org_details",
+      "ip_integration_type",
+      "ip_point_of_contact",
+      "ip_service_area",
+      "ip_agreement",
+    ]);
   });
 
   it("agent flow includes agent professional steps", () => {
