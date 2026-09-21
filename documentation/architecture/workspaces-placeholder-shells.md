@@ -4,20 +4,22 @@ Some workspaces still render **empty dashboard pages** while identity, nav, and 
 
 See [workspace-first-architecture.md](workspace-first-architecture.md) for the full inventory.
 
-## Current as-built (2026-07-24)
+## Current as-built (2026-07-31)
 
 | Workspace | Dashboard | Messaging | Nav (`getWorkspaceNavTabs`) |
 |-----------|-----------|-----------|-----------------------------|
-| **Buyer / agent** | Full product | Full product | Full tabs |
-| **Brokerage** | Analytics + Market inventory ([brokerage-analytics.md](../features/brokerage/brokerage-analytics.md)) | Workspace stack (`BrokerageMessaging`) | Dashboard, Library, Messaging, Profile (Search hidden; Inventory via Market tab) |
+| **Buyer / agent** | Full product (agent: client hub under `/dashboard/client/...`) | Full product | Full tabs |
+| **Brokerage** | Analytics + Ask + Market inventory ([brokerage-analytics.md](../features/brokerage/brokerage-analytics.md)) | Workspace stack (`BrokerageMessaging`) | Dashboard, Library, Messaging, Profile (Search hidden; Inventory via Market tab) |
 | **Seller** | `WorkspacePlaceholderPage` via `SellerDashboardPage` | Real agent–client stack (`ClientMessaging` + seller persona) | Same visibility rules as non-placeholder workspaces (Search/Library/Profile visible) |
 | **Integration partner** | `WorkspacePlaceholderPage` | Workspace stack (`integrator` persona) | Same as other non-placeholder workspaces |
 
 `isPlaceholderWorkspace` no longer lists seller/brokerage/integration_partner. Route guards that keyed off it (`showPlaceholderForRoute`, barren nav) therefore do **not** force placeholder UX. Thin pages still choose placeholder vs real shells explicitly.
 
-## Seller onboarding exception
+## Seller / integration-partner onboarding exceptions
 
-Seller signup uses the full multi-step `seller_onboarding` flow ([SIL-192](https://linear.app/silverkey/issue/SIL-192/seller-seller-onboarding-profile-variation)) — property, address, timeline, motivation, pricing, demographics. Seller **dashboard** remains placeholder; **messaging is shipped**. See [profile-onboarding.md](../features/account/profile-onboarding.md).
+Seller signup uses the full multi-step `seller_onboarding` flow ([SIL-192](https://linear.app/silverkey/issue/SIL-192/seller-seller-onboarding-profile-variation)) — property, address, timeline, motivation, pricing, demographics. Seller **dashboard** remains placeholder; **messaging is shipped**.
+
+Integration partner signup uses the five-step SIL-193 flow (`ip_org_details` … `ip_agreement`) instead of the old single shell-setup step. Partner **dashboard** remains placeholder; **messaging** uses the workspace stack. See [profile-onboarding.md](../features/account/profile-onboarding.md).
 
 ## What “placeholder dashboard” means
 

@@ -89,8 +89,9 @@ Canonical routes are shared; **nav visibility**, **labels**, **onboarding**, and
 | **Onboarding (web)** | `onboarding_role` → About → brokerage → licensing → territory |
 | **Nav (desktop)** | Dashboard, Search, Library, Messaging (**Clients**), Profile |
 | **Nav (mobile)** | Same tab keys as buyer; messaging label **Clients** |
-| **Dashboard (`/dashboard`)** | `DashboardPage` → `DashboardFeature` with `activeWorkspace === "agent"` branches (client hub, agent calendar) |
-| **Messaging** | `AgentPage` / Client Hub surfaces |
+| **Dashboard (`/dashboard`)** | `DashboardPage` → `DashboardFeature` with `activeWorkspace === "agent"` branches (client list, agent calendar; client hub under `/dashboard/client/...`) |
+| **Client hub** | Per-client tabs (roadmap, profile, liked homes, library, schedule) — [agent-client-hub.md](../features/agent/agent-client-hub.md). Messaging is **not** a hub tab. |
+| **Messaging** | `/messaging` — `AgentMessaging` / agent Clients tab (sibling of hub) |
 | **Post-onboarding** | `/dashboard` |
 | **API identity** | `useIsAgent()` — agent role in `user.roles` for agent-only endpoints |
 
@@ -124,12 +125,12 @@ As-built operator shell with placeholder dashboard. Partner placement admin (bro
 
 | Area | Detail |
 | ---- | ------ |
-| **Onboarding** | Public role picker: **Integration partner** → `onboarding_role` → `integration_partner_shell_setup` → submit. Grants `integration_partner` on first write; lands on `/dashboard`. |
+| **Onboarding** | Public role picker: **Integration partner** → `onboarding_role` → five SIL-193 steps (`ip_org_details` … `ip_agreement`) → submit. Grants `integration_partner` on first write; lands on `/dashboard`. See [profile-onboarding.md](../features/account/profile-onboarding.md). |
 | **Nav** | Standard non-placeholder visibility. |
-| **Dashboard** | `IntegrationPartnerDashboardPage` → `WorkspacePlaceholderPage` |
+| **Dashboard** | `IntegrationPartnerDashboardPage` → `WorkspacePlaceholderPage` (onboarding is multi-step; dashboard is still empty) |
 | **Messaging** | Workspace stack (`integrator` persona) |
 | **Related (brokerage-side)** | [rev-share-partners.md](../features/transaction-management/rev-share-partners.md) |
-| **Code** | `IntegrationPartnerDashboardPage.tsx`, `packages/features/integrationPartner/` |
+| **Code** | `IntegrationPartnerDashboardPage.tsx`, `packages/features/integrationPartner/`, IP steps under `packages/features/profile/components/onboarding/ip/` |
 
 ---
 

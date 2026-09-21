@@ -1,7 +1,7 @@
 # Messaging feature
 
 > **Status:** Shipped for buyer/seller/agent (agent–client stack) and brokerage/integrator/admin (workspace stack)  
-> **Last verified:** 2026-07-24  
+> **Last verified:** 2026-07-31  
 > **Code:** `Client/packages/features/messaging/`, `Server/app/routes/conversations/`, `Server/app/routes/agent/` (legacy chats)
 
 Unified messaging across two stacks:
@@ -20,6 +20,10 @@ Eligible contacts power new thread creation for brokerage↔agent and integrator
 - Persona matrix: [persona-variations.md](../../architecture/messaging/persona-variations.md)
 - Workspace API: [workspace-conversations.md](../../architecture/messaging/workspace-conversations.md)
 - SSE (three web hooks, dual stream URLs, mobile gap): [sse.md](../../architecture/messaging/sse.md)
+
+## Calendar event requests
+
+From agent–client threads, users can send a structured **Request Calendar Event** message (`__EVENT_REQUEST__` prefix), with recipient prefill from the open conversation. Web reuses the create-event modal; native uses a dedicated form. Accept/cancel is `PATCH …/event-request-status`. Details: [calendar-event-requests.md](./calendar-event-requests.md).
 
 ## Ops
 
